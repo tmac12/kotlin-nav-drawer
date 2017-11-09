@@ -8,11 +8,17 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import it.tmac12.kotlinnavdrawer.util.replaceFragmentInActivity
+import it.tmac12.kotlinnavdrawer.view.fragment.Fragment_One
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.toast
+import android.R.attr.fragment
+import android.support.v4.app.Fragment
+import it.tmac12.kotlinnavdrawer.view.fragment.FragmentOnePresenter
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,6 +69,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_camera -> {
                 // Handle the camera action
                 toast("Click Camera")
+/*
+                var fragment:Fragment? = null
+
+
+                try {
+                    fragment = Fragment_One.newInstance()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+                // Insert the fragment by replacing any existing fragment
+                val fragmentManager = supportFragmentManager
+                if (fragment != null) {
+                    fragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
+                }
+*/
+
+                //from google sample
+                val tasksFragment = supportFragmentManager.findFragmentById(R.id.contentFrame)
+                        as Fragment_One? ?: Fragment_One.newInstance().also {
+                    replaceFragmentInActivity(it, R.id.contentFrame)
+                }
+
+
+                // Create the presenter
+                /*
+                TaskDetailPresenter(taskId, Injection.provideTasksRepository(applicationContext),
+                        taskDetailFragment)
+                        */
+
             }
             R.id.nav_gallery -> {
                 toast("Nav gallery")
@@ -71,7 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_manage -> {
-
+                drawer_layout!!.closeDrawers()
             }
             R.id.nav_share -> {
 
