@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             snackbar(view,"Hi!","Action"){toast("Azione!!")}
         }
 
+        initNavigation()
+    }
+
+    private fun initNavigation(){
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction()
                 .replace(R.id.contentFrame, fragment).commit()
     }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
