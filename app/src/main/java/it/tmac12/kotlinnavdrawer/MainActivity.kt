@@ -18,6 +18,7 @@ import org.jetbrains.anko.toast
 import android.R.attr.fragment
 import android.support.v4.app.Fragment
 import it.tmac12.kotlinnavdrawer.view.fragment.FragmentOnePresenter
+import it.tmac12.kotlinnavdrawer.view.fragment.Fragment_Two
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -63,45 +64,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private fun navigateTo(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.contentFrame, fragment).commit()
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
                 // Handle the camera action
                 toast("Click Camera")
-/*
-                var fragment:Fragment? = null
 
 
-                try {
-                    fragment = Fragment_One.newInstance()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-                // Insert the fragment by replacing any existing fragment
-                val fragmentManager = supportFragmentManager
-                if (fragment != null) {
-                    fragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
-                }
-*/
-
+                /*
                 //from google sample
-                val tasksFragment = supportFragmentManager.findFragmentById(R.id.contentFrame)
+                val fragmentOne = supportFragmentManager.findFragmentById(R.id.contentFrame)
                         as Fragment_One? ?: Fragment_One.newInstance().also {
                     replaceFragmentInActivity(it, R.id.contentFrame)
                 }
+                */
 
-
-                // Create the presenter
+                //my way
                 /*
-                TaskDetailPresenter(taskId, Injection.provideTasksRepository(applicationContext),
-                        taskDetailFragment)
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.contentFrame, Fragment_One.newInstance()).commit()
                         */
+                navigateTo(Fragment_One.newInstance())
 
             }
             R.id.nav_gallery -> {
                 toast("Nav gallery")
+
+                /*
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.contentFrame, Fragment_Two.newInstance()).commit()
+                */
+                navigateTo(Fragment_Two.newInstance())
+
             }
             R.id.nav_slideshow -> {
 
